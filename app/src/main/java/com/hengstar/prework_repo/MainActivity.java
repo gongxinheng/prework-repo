@@ -1,8 +1,8 @@
 package com.hengstar.prework_repo;
 
-import android.support.v7.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +16,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<String> todoItems;
-    ArrayAdapter<String> aToDoAdapter;
-    ListView lvItems;
-    EditText etEditText;
+    public static String PARAM_KEY_EDIT_INDEX = "EDIT_INDEX";
+    public static String PARAM_KEY_EDIT_TEXT = "EDIT_TEXT";
+    private final int REQUEST_CODE = 1;
+
+    private ArrayList<String> todoItems;
+    private ArrayAdapter<String> aToDoAdapter;
+    private ListView lvItems;
+    private EditText etEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +37,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 todoItems.remove(i);
-                aToDoAdapter.notifyDataSetChanged();
-                writeItems();
+                updateAndSave();
                 return true;
+            }
+        });
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent iEdit = new Intent(MainActivity.this, EditItemActivity.class);
+                // Pass current string and its index to be edited
+                iEdit.putExtra(PARAM_KEY_EDIT_INDEX, i);
+                iEdit.putExtra(PARAM_KEY_EDIT_TEXT, lvItems.getItemAtPosition(i).toString());
+                startActivityForResult(iEdit, REQUEST_CODE);
             }
         });
     }
@@ -68,6 +81,26 @@ public class MainActivity extends AppCompatActivity {
     public void onAddItem(View view) {
         aToDoAdapter.add(etEditText.getText().toString());
         etEditText.setText("");
+        // TODO: Question: Is notifyDataSetChanged necessary?
+        updateAndSave();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent iData) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            int i = iData.getIntExtra(PARAM_KEY_EDIT_INDEX, -1);
+            // TODO: if (i == -1) // Something wrong
+            String text = iData.getExtras().getString(PARAM_KEY_EDIT_TEXT);
+            todoItems.set(i, text);
+            updateAndSave();
+        }
+    }
+
+    /**
+     * Update changes and save it persistently
+     */
+    private void updateAndSave() {
+        aToDoAdapter.notifyDataSetChanged();
         writeItems();
     }
 }
