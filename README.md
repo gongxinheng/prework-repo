@@ -5,7 +5,7 @@
 
 Submitted by: **Hengstar Gong**
 
-Time spent: **3.5** hours spent in total
+Time spent: **6.5** hours spent in total
 
 ## User Stories
 
@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [ ] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
+* [x] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [ ] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [ ] Add support for completion due dates for todo items (and display within listview item)
 * [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
@@ -32,6 +32,7 @@ The following **additional** features are implemented:
 * Add more information about the item added, like the date time
 * Sort the list by lexicographic order/date time added
 * Identify numbers or URLs items and allow the user to visit the URL directly or call the phone number.
+* Allow users to login and edit their own list
 * To be continued...
 
 ## Video Walkthrough
@@ -60,7 +61,12 @@ By reading the [blog](http://android.amberfog.com/?p=296) I can tell one of the 
 
 Describe any challenges encountered while building the app.
 
-One challenge I encountered was when I forgot to call `notifyDataSetChanged` after removing the item. Then I tested it on emulator. Of cause it didn't work and it crashed after atempting of removing more items. I stuck a bit until I found the log says `The content of the adapter has changed but ListView did not receive a notification`.
+* One challenge I encountered was when I forgot to call `notifyDataSetChanged` after removing the item. Then I tested it on emulator. Of cause it didn't work and it crashed after atempting of removing more items. I stuck a bit until I found the log says `The content of the adapter has changed but ListView did not receive a notification`.
+* Persisting the data with `SQLiteOpenHelper` is definitely a challenge. I intentionally directly used `SQLiteOpenHelper` and tried to understand how it works. I spent some time to learn how to use it.
+I involved into a lot of issues after introducing it. First, it crashed when I opened the app. I realized I didn't increase the DB version after I modified the table field.
+Then I was not able to delete the data from DB because I used index of the item instead of auto-increamtal ID.
+After using the ID field, I realized I also needed a model to store the list item and made it Serializable for intent to carry.
+I also encountered crashes caused by some silly SQL syntax errors.
 
 ## License
 

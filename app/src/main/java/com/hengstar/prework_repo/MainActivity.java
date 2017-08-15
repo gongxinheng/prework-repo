@@ -9,19 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import org.apache.commons.io.FileUtils;
+import com.hengstar.prework_repo.models.ListItem;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    // Public for EditItemActivity to use
     public static String PARAM_KEY_EDIT_INDEX = "EDIT_INDEX";
-    public static String PARAM_KEY_EDIT_TEXT = "EDIT_TEXT";
+    public static String PARAM_KEY_EDIT_ITEM = "EDIT_ITEM";
     private final int REQUEST_CODE = 1;
 
-    private ArrayList<String> todoItems;
-    private ArrayAdapter<String> aToDoAdapter;
+    private ArrayList<ListItem> todoItems;
+    private ArrayAdapter<ListItem> aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
 
@@ -36,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Delete it from SQLite DB
+                SimpleEditorDatabaseHelper.getInstance(MainActivity.this).deleteItem(todoItems.get(i).id);
                 todoItems.remove(i);
-                updateAndSave();
+                aToDoAdapter.notifyDataSetChanged();
+
                 return true;
             }
         });
@@ -47,61 +49,36 @@ public class MainActivity extends AppCompatActivity {
                 Intent iEdit = new Intent(MainActivity.this, EditItemActivity.class);
                 // Pass current string and its index to be edited
                 iEdit.putExtra(PARAM_KEY_EDIT_INDEX, i);
-                iEdit.putExtra(PARAM_KEY_EDIT_TEXT, lvItems.getItemAtPosition(i).toString());
+                iEdit.putExtra(PARAM_KEY_EDIT_ITEM, todoItems.get(i));
                 startActivityForResult(iEdit, REQUEST_CODE);
             }
         });
     }
 
     public void populateArrayItems() {
-        readItems();
+        // Read stored items from SQLite DB
+        todoItems = SimpleEditorDatabaseHelper.getInstance(this).getAllItems();
         aToDoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
     }
 
-    public void readItems() {
-        File fileDir = getFilesDir();
-        File file = new File(fileDir, "todo.txt");
-        try {
-            todoItems = new ArrayList<>(FileUtils.readLines(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void writeItems() {
-        File fileDir = getFilesDir();
-        File file = new File(fileDir, "todo.txt");
-        try {
-            FileUtils.writeLines(file, todoItems);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void onAddItem(View view) {
-        aToDoAdapter.add(etEditText.getText().toString());
+        String value = etEditText.getText().toString();
+        // Insert it into SQLite DB
+        long id = SimpleEditorDatabaseHelper.getInstance(this).addItem(value);
+        // TODO: if (id == -1) // something wrong
+        aToDoAdapter.add(new ListItem(id, value));
         etEditText.setText("");
-        // TODO: Question: Is notifyDataSetChanged necessary?
-        updateAndSave();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent iData) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            int i = iData.getIntExtra(PARAM_KEY_EDIT_INDEX, -1);
+            int index = iData.getIntExtra(PARAM_KEY_EDIT_INDEX, -1);
             // TODO: if (i == -1) // Something wrong
-            String text = iData.getExtras().getString(PARAM_KEY_EDIT_TEXT);
-            todoItems.set(i, text);
-            updateAndSave();
+            ListItem item = (ListItem) iData.getSerializableExtra(PARAM_KEY_EDIT_ITEM);
+            // Id doesn't change
+            todoItems.set(index, item);
+            aToDoAdapter.notifyDataSetChanged();
         }
     }
-
-    /**
-     * Update changes and save it persistently
-     */
-    private void updateAndSave() {
-        aToDoAdapter.notifyDataSetChanged();
-        writeItems();
-    }
 }
-
