@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.hengstar.prework_repo.adapters.ListItemAdapter;
 import com.hengstar.prework_repo.models.ListItem;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 1;
 
     private ArrayList<ListItem> todoItems;
-    private ArrayAdapter<ListItem> aToDoAdapter;
+    private ListItemAdapter aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public void populateArrayItems() {
         // Read stored items from SQLite DB
         todoItems = SimpleEditorDatabaseHelper.getInstance(this).getAllItems();
-        aToDoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
+        aToDoAdapter = new ListItemAdapter(this, todoItems);
     }
 
     public void onAddItem(View view) {
