@@ -5,7 +5,7 @@
 
 Submitted by: **Hengstar Gong**
 
-Time spent: **7** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
@@ -20,7 +20,7 @@ The following **optional** features are implemented:
 * [x] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [x] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [ ] Add support for completion due dates for todo items (and display within listview item)
-* [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
+* [x] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [ ] Add support for selecting the priority of each todo item (and display in listview item)
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
@@ -67,6 +67,7 @@ I involved into a lot of issues after introducing it. First, it crashed when I o
 Then I was not able to delete the data from DB because I used index of the item instead of auto-increamtal ID.
 After using the ID field, I realized I also needed a model to store the list item and made it Serializable for intent to carry.
 I also encountered crashes caused by some silly SQL syntax errors.
+* Using DialogFragment is a bit intricate. Spent some time on reading the document.
 
 ## License
 

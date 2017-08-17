@@ -1,7 +1,7 @@
 package com.hengstar.prework_repo;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +13,7 @@ import com.hengstar.prework_repo.models.ListItem;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    // Public for EditItemActivity to use
-    public static String PARAM_KEY_EDIT_INDEX = "EDIT_INDEX";
-    public static String PARAM_KEY_EDIT_ITEM = "EDIT_ITEM";
-    private final int REQUEST_CODE = 1;
+public class MainActivity extends AppCompatActivity implements EditListItemDialogFragment.EditListItemDialogListener {
 
     private ArrayList<ListItem> todoItems;
     private ListItemAdapter aToDoAdapter;
@@ -46,11 +42,7 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent iEdit = new Intent(MainActivity.this, EditItemActivity.class);
-                // Pass current string and its index to be edited
-                iEdit.putExtra(PARAM_KEY_EDIT_INDEX, i);
-                iEdit.putExtra(PARAM_KEY_EDIT_ITEM, todoItems.get(i));
-                startActivityForResult(iEdit, REQUEST_CODE);
+                showEditDialog(i);
             }
         });
     }
@@ -70,15 +62,22 @@ public class MainActivity extends AppCompatActivity {
         etEditText.setText("");
     }
 
+    /**
+     *
+     * @param itemIndex Item index to be edited
+     */
+    private void showEditDialog(int itemIndex) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditListItemDialogFragment editDialogFragment = EditListItemDialogFragment.newInstance(
+                getString(R.string.edit_item), itemIndex, todoItems.get(itemIndex));
+        editDialogFragment.show(fm, "fragment_edit_item");
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent iData) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            int index = iData.getIntExtra(PARAM_KEY_EDIT_INDEX, -1);
-            // TODO: if (i == -1) // Something wrong
-            ListItem item = (ListItem) iData.getSerializableExtra(PARAM_KEY_EDIT_ITEM);
-            // Id doesn't change
-            todoItems.set(index, item);
-            aToDoAdapter.notifyDataSetChanged();
-        }
+    public void onFinishEditDialog(int itemIndex, ListItem item) {
+        todoItems.set(itemIndex, item);
+        aToDoAdapter.notifyDataSetChanged();
+        // Update from SQLite DB
+        SimpleEditorDatabaseHelper.getInstance(this).updateItem(item);
     }
 }
