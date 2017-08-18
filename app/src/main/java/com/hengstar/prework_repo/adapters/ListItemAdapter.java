@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hengstar.prework_repo.R;
 import com.hengstar.prework_repo.models.ListItem;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListItemAdapter extends ArrayAdapter<ListItem> {
@@ -28,8 +29,11 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
-        TextView tvItemValue = (TextView) convertView.findViewById(R.id.tvItemValue);
-        tvItemValue.setText(item.value);
+        TextView tvItemValue = convertView.findViewById(R.id.tvItemValue);
+        tvItemValue.setText(item.title);
+        TextView tvDueDate = convertView.findViewById(R.id.tvDueDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        tvDueDate.setText(sdf.format(item.date));
 
         return convertView;
     }
