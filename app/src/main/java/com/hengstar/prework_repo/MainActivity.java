@@ -12,7 +12,6 @@ import com.hengstar.prework_repo.models.ListItem;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements EditListItemDialogFragment.EditListItemDialogListener {
 
@@ -65,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements EditListItemDialo
     private void showEditDialog(int itemIndex) {
         FragmentManager fm = getSupportFragmentManager();
         EditListItemDialogFragment editDialogFragment = itemIndex == -1
-                ? EditListItemDialogFragment.newInstance(getString(R.string.add_item), itemIndex,
-                    new ListItem(-1, "", new Date()))
+                ? EditListItemDialogFragment.newInstance(getString(R.string.add_item), itemIndex, null)
                 : EditListItemDialogFragment.newInstance(getString(R.string.edit_item), itemIndex, todoItems.get(itemIndex));
         editDialogFragment.show(fm, "fragment_edit_item");
     }

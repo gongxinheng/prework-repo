@@ -1,11 +1,11 @@
 
-# Pre-work - **Hengstar Simple Editor**
+# Pre-work - **Simple Todo List**
 
-**Hengstar Simple Editor** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
+**Simple Todo List** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
 Submitted by: **Hengstar Gong**
 
-Time spent: **9** hours spent in total
+Time spent: **10.5** hours spent in total
 
 ## User Stories
 
@@ -21,13 +21,13 @@ The following **optional** features are implemented:
 * [x] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [x] Add support for completion due dates for todo items (and display within listview item)
 * [x] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
-* [ ] Add support for selecting the priority of each todo item (and display in listview item)
-* [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
+* [x] Add support for selecting the priority of each todo item (and display in listview item)
+* [x] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 The following **additional** features are implemented:
 
 * [x] List anything else that you can get done to improve the app functionality!
-* Improve the UI to make it more user-friendly
+* [x] Different colors for priority text and due date.
 * Allow user select and remove more than one items as a time (also can add `remove all`)
 * Add more information about the item added, like the date time
 * Sort the list by lexicographic order/date time added
@@ -39,7 +39,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/QOvcOT3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/2V36rz7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -68,6 +68,8 @@ Then I was not able to delete the data from DB because I used index of the item 
 After using the ID field, I realized I also needed a model to store the list item and made it Serializable for intent to carry.
 I also encountered crashes caused by some silly SQL syntax errors.
 * Using DialogFragment is a bit intricate. Spent some time on reading the document.
+* Stuck when I didn't find a way to get auto-incremental id from DBFlow apis.
+Then I found the id will be filled after saving.
 
 ## License
 

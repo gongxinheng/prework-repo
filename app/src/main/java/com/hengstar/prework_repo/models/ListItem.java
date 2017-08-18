@@ -15,6 +15,13 @@ import java.util.Date;
  */
 @Table(database = ToDoDatabase.class)
 public class ListItem extends BaseModel implements Serializable {
+    public enum Priority {
+        HIGH, MEDIUM, LOW
+    }
+
+    // Default list item used in adding new item
+    public static final ListItem DEFAULT_ITEM = new ListItem(-1, "", new Date(), ListItem.Priority.MEDIUM);
+
     @Column
     @PrimaryKey(autoincrement = true)
     public long id;
@@ -25,15 +32,19 @@ public class ListItem extends BaseModel implements Serializable {
     @Column
     public Date date;
 
+    @Column
+    public Priority priority;
+
     public ListItem(){
 
     }
 
-    public ListItem(long id, String title, Date date) {
+    public ListItem(long id, String title, Date date, Priority priority) {
         super();
         this.id = id;
         this.title = title;
         this.date = date;
+        this.priority = priority;
     }
 
     // Used for list view to display
