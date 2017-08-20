@@ -5,7 +5,7 @@
 
 Submitted by: **Hengstar Gong**
 
-Time spent: **10.5** hours spent in total
+Time spent: **10.8** hours spent in total
 
 ## User Stories
 
@@ -27,12 +27,12 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 * [x] List anything else that you can get done to improve the app functionality!
-* [x] Different colors for priority text and due date.
-* Allow user select and remove more than one items as a time (also can add `remove all`)
+* [x] Different colors for priority text and due date
+* [ ] Allow user to remove all items at once
 * Add more information about the item added, like the date time
-* Sort the list by lexicographic order/date time added
-* Identify numbers or URLs items and allow the user to visit the URL directly or call the phone number.
-* Allow users to login and edit their own list
+* [x] Sort the list by due date
+* [ ] Identify numbers or URLs items and allow the user to visit the URL directly or call the phone number
+* [ ] Allow users to login and edit their own list
 * To be continued...
 
 ## Video Walkthrough
