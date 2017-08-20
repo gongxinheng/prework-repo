@@ -48,9 +48,9 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         tvItemValue.setText(item.title);
         TextView tvDueDate = convertView.findViewById(R.id.tvDueDate);
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        tvDueDate.setText(res.getString(R.string.due_date, sdf.format(item.date)));
-        // Calculate day difference between now and due date
-        long dueDays = TimeUnit.DAYS.convert(item.date.getTime() - new Date().getTime(), TimeUnit.MILLISECONDS);
+        tvDueDate.setText(res.getString(R.string.due_date, sdf.format(item.dueDate)));
+        // Calculate day difference between now and due dueDate
+        long dueDays = TimeUnit.DAYS.convert(item.dueDate.getTime() - new Date().getTime(), TimeUnit.MILLISECONDS);
         if (dueDays < 5) {
             tvDueDate.setTextColor(PRIORITY_COLOR_MAP.get(ListItem.Priority.HIGH));
         } else if (dueDays < 30) {

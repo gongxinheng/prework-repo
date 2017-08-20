@@ -12,6 +12,7 @@ import com.hengstar.prework_repo.models.ListItem;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements EditListItemDialogFragment.EditListItemDialogListener {
 
@@ -49,11 +50,11 @@ public class MainActivity extends AppCompatActivity implements EditListItemDialo
         todoItems = new ArrayList<>();
         // Read stored items from SQLite DB
         todoItems.addAll(SQLite.select().from(ListItem.class).queryList());
+        Collections.sort(todoItems);
         aToDoAdapter = new ListItemAdapter(this, todoItems);
     }
 
     public void onAddItem(View view) {
-        ListItem newItem = new ListItem();
         showEditDialog(-1);
     }
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements EditListItemDialo
         } else {
             todoItems.set(itemIndex, item);
         }
-
+        Collections.sort(todoItems);
         aToDoAdapter.notifyDataSetChanged();
         // Update from SQLite DB
         item.save();

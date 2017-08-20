@@ -101,7 +101,7 @@ public class EditListItemDialogFragment extends DialogFragment implements Button
 
         dpDueDate = view.findViewById(R.id.dpDueDate);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mOriginalItem.date);
+        calendar.setTime(mOriginalItem.dueDate);
         dpDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         rgPriority = view.findViewById(R.id.rgPriority);

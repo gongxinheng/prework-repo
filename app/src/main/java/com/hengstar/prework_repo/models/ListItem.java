@@ -1,5 +1,7 @@
 package com.hengstar.prework_repo.models;
 
+import android.support.annotation.NonNull;
+
 import com.hengstar.prework_repo.ToDoDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -14,7 +16,19 @@ import java.util.Date;
  * Serializable for intent to transmit
  */
 @Table(database = ToDoDatabase.class)
-public class ListItem extends BaseModel implements Serializable {
+public class ListItem extends BaseModel implements Serializable, Comparable<ListItem> {
+    @Override
+    public int compareTo(@NonNull ListItem item) {
+        long dif = this.dueDate.getTime() - item.dueDate.getTime();
+        if (dif == 0) {
+            return 0;
+        } else if (dif > 0) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
     public enum Priority {
         HIGH, MEDIUM, LOW
     }
@@ -30,7 +44,7 @@ public class ListItem extends BaseModel implements Serializable {
     public String title;
 
     @Column
-    public Date date;
+    public Date dueDate;
 
     @Column
     public Priority priority;
@@ -43,7 +57,7 @@ public class ListItem extends BaseModel implements Serializable {
         super();
         this.id = id;
         this.title = title;
-        this.date = date;
+        this.dueDate = date;
         this.priority = priority;
     }
 
