@@ -11,4 +11,21 @@
     <string name="priority_low">low</string>
     <string name="priority">Priority: %1$s</string>
     <string name="due_date">Due date: %1$s</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="create_new_user_hint">Username %1$s does not exist, do you want to create it?</string>
+    <string name="create_new_user_title">Create a new user</string>
+    <string name="user_created">User %1$s created</string>
 </resources>

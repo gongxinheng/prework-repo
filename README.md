@@ -5,7 +5,7 @@
 
 Submitted by: **Hengstar Gong**
 
-Time spent: **10.8** hours spent in total
+Time spent: **13** hours spent in total
 
 ## User Stories
 
@@ -28,18 +28,17 @@ The following **additional** features are implemented:
 
 * [x] List anything else that you can get done to improve the app functionality!
 * [x] Different colors for priority text and due date
-* [ ] Allow user to remove all items at once
-* Add more information about the item added, like the date time
 * [x] Sort the list by due date
+* [x] Allow users to signup/login and edit their own list
 * [ ] Identify numbers or URLs items and allow the user to visit the URL directly or call the phone number
-* [ ] Allow users to login and edit their own list
+* [ ] Allow user to remove all items at once
 * To be continued...
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/2V36rz7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/bE07hWc.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

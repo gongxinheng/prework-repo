@@ -9,21 +9,24 @@ import android.widget.ListView;
 
 import com.hengstar.prework_repo.adapters.ListItemAdapter;
 import com.hengstar.prework_repo.models.ListItem;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.hengstar.prework_repo.models.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity implements EditListItemDialogFragment.EditListItemDialogListener {
+public class ToDoListActivity extends AppCompatActivity implements EditListItemDialogFragment.EditListItemDialogListener {
 
     private ArrayList<ListItem> todoItems;
     private ListItemAdapter aToDoAdapter;
     private ListView lvItems;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Retrieve current user info
+        currentUser = (User) getIntent().getSerializableExtra(LoginActivity.PARAM_KEY_USER_INFO);
         populateArrayItems();
         lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(aToDoAdapter);
@@ -48,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements EditListItemDialo
 
     public void populateArrayItems() {
         todoItems = new ArrayList<>();
-        // Read stored items from SQLite DB
-        todoItems.addAll(SQLite.select().from(ListItem.class).queryList());
+        // Read all items from SQLite DB
+        todoItems.addAll(currentUser.getAllItems());
         Collections.sort(todoItems);
         aToDoAdapter = new ListItemAdapter(this, todoItems);
     }
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements EditListItemDialo
         Collections.sort(todoItems);
         aToDoAdapter.notifyDataSetChanged();
         // Update from SQLite DB
+        item.userId = currentUser.userId;
         item.save();
     }
 }

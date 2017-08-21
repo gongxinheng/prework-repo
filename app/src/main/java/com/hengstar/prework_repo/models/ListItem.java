@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.hengstar.prework_repo.ToDoDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -34,11 +35,15 @@ public class ListItem extends BaseModel implements Serializable, Comparable<List
     }
 
     // Default list item used in adding new item
-    public static final ListItem DEFAULT_ITEM = new ListItem(-1, "", new Date(), ListItem.Priority.MEDIUM);
+    public static final ListItem DEFAULT_ITEM = new ListItem(-1, -1, "", new Date(), ListItem.Priority.MEDIUM);
 
     @Column
     @PrimaryKey(autoincrement = true)
     public long id;
+
+    @Column
+    @ForeignKey(tableClass = ListItem.class, saveForeignKeyModel = true)
+    public long userId;
 
     @Column
     public String title;
@@ -53,9 +58,10 @@ public class ListItem extends BaseModel implements Serializable, Comparable<List
 
     }
 
-    public ListItem(long id, String title, Date date, Priority priority) {
+    public ListItem(long id, long userId, String title, Date date, Priority priority) {
         super();
         this.id = id;
+        this.userId = userId;
         this.title = title;
         this.dueDate = date;
         this.priority = priority;

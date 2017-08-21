@@ -116,6 +116,7 @@ public class EditListItemDialogFragment extends DialogFragment implements Button
         calendar.set(dpDueDate.getYear(), dpDueDate.getMonth(), dpDueDate.getDayOfMonth(), 0, 0, 0);
         Date date = calendar.getTime();
         listener.onFinishEditDialog(mItemIndex, new ListItem(mOriginalItem.id,
+                                                             mOriginalItem.userId,
                                                              mEtEditItem.getText().toString(),
                                                              date,
                                                              RESID_PRIORITY_MAP.get(rgPriority.getCheckedRadioButtonId())));
