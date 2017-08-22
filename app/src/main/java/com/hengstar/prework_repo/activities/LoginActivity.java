@@ -1,4 +1,4 @@
-package com.hengstar.prework_repo;
+package com.hengstar.prework_repo.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hengstar.prework_repo.R;
 import com.hengstar.prework_repo.models.User;
 import com.hengstar.prework_repo.models.User_Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;

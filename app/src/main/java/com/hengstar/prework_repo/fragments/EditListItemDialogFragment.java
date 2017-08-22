@@ -1,4 +1,4 @@
-package com.hengstar.prework_repo;
+package com.hengstar.prework_repo.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.hengstar.prework_repo.R;
 import com.hengstar.prework_repo.models.ListItem;
 
 import java.util.Calendar;

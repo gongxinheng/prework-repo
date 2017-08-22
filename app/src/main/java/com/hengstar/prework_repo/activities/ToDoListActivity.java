@@ -1,4 +1,4 @@
-package com.hengstar.prework_repo;
+package com.hengstar.prework_repo.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.hengstar.prework_repo.fragments.EditListItemDialogFragment;
+import com.hengstar.prework_repo.R;
 import com.hengstar.prework_repo.adapters.ListItemAdapter;
 import com.hengstar.prework_repo.models.ListItem;
 import com.hengstar.prework_repo.models.User;
